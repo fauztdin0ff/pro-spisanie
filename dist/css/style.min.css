@@ -893,6 +893,7 @@ Others
     padding: 0 26px;
     border-left: 1px solid #fff;
     width: 100%;
+    box-shadow: none;
   }
   .menu__sublist.show {
     transform: translateX(0);
@@ -2808,5 +2809,222 @@ reviews
 @media (hover: hover) {
   .reviews__item-button .button-black:hover {
     background: #1f3f87;
+  }
+}
+
+/*------------------------------
+Steps
+---------------------------*/
+.steps__body {
+  padding: 120px 0;
+}
+@media (width < 1024px) {
+  .steps__body {
+    padding: 80px 0;
+  }
+}
+@media (width < 767px) {
+  .steps__body {
+    padding: 36px 0 46px;
+  }
+}
+.steps__title {
+  margin-bottom: 60px;
+}
+@media (width < 767px) {
+  .steps__title {
+    margin-bottom: 40px;
+  }
+}
+.steps__slide {
+  padding: 17px 22px 20px 24px;
+  border: 1px solid rgba(134, 188, 232, 0.3);
+  border-radius: 8px;
+  background: rgb(247, 249, 251);
+  height: auto;
+}
+@media (width < 767px) {
+  .steps__slide {
+    padding-bottom: 40px;
+  }
+}
+.steps__slide-num {
+  background: linear-gradient(50.48deg, rgb(0, 177, 192), rgb(49, 138, 172) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-size: 84px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 120px;
+}
+@media (width < 374px) {
+  .steps__slide-num {
+    margin-bottom: 60px;
+  }
+}
+.steps__slide-name {
+  color: #1f3f87;
+  font-size: 32px;
+  line-height: 125%;
+  margin-bottom: 20px;
+}
+@media (width < 767px) {
+  .steps__slide-name {
+    font-size: 28px;
+    color: #002853;
+  }
+  .steps__slide-name br {
+    display: none;
+  }
+}
+@media (width < 374px) {
+  .steps__slide-name {
+    font-size: 22px;
+  }
+}
+.steps__slide-descr {
+  color: rgba(0, 40, 83, 0.6);
+  font-size: 18px;
+  line-height: 155.555556%;
+}
+@media (width < 374px) {
+  .steps__slide-descr {
+    font-size: 16px;
+  }
+}
+.steps__slide-button {
+  margin-top: 20px;
+}
+.steps__slider-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/*------------------------------
+FAQ
+---------------------------*/
+.faq__body {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+@media (width < 1200px) {
+  .faq__body {
+    flex-direction: column;
+  }
+}
+@media (width < 767px) {
+  .faq__body {
+    gap: 10px;
+  }
+}
+.faq__info {
+  max-width: 567px;
+}
+@media (width < 1200px) {
+  .faq__info {
+    max-width: 100%;
+  }
+}
+.faq__info-wrapper {
+  position: sticky;
+  top: 140px;
+}
+@media (width < 767px) {
+  .faq__title {
+    margin-bottom: 20px;
+  }
+}
+.faq__subtitle {
+  margin-bottom: 30px;
+}
+@media (width < 767px) {
+  .faq__subtitle {
+    margin-bottom: 20px;
+  }
+}
+.faq__image {
+  width: 100%;
+}
+.faq__image img {
+  width: 100%;
+  border-radius: 10px;
+}
+.faq__items {
+  max-width: 863px;
+}
+@media (width < 1200px) {
+  .faq__items {
+    max-width: 100%;
+  }
+}
+.faq__item {
+  border-bottom: 1px solid #86bce8;
+}
+.faq__item.active .faq__question svg {
+  transform: rotate(180deg);
+}
+.faq__item.active .faq__answer {
+  padding-bottom: 40px;
+}
+@media (width < 1300px) {
+  .faq__item.active .faq__answer {
+    padding-bottom: 30px;
+  }
+}
+.faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+  font-size: 32px;
+  line-height: 125%;
+  color: #002853;
+  padding: 40px 0;
+  cursor: pointer;
+}
+.faq__question i {
+  font-style: normal;
+  color: #86bce8;
+}
+.faq__question svg {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s linear 0s;
+}
+@media (width < 1300px) {
+  .faq__question {
+    font-size: 28px;
+    padding: 30px 0;
+  }
+}
+@media (width < 767px) {
+  .faq__question {
+    padding: 20px 0 30px;
+  }
+}
+@media (width < 399px) {
+  .faq__question {
+    font-size: 24px;
+  }
+}
+@media (width < 359px) {
+  .faq__question {
+    font-size: 20px;
+  }
+}
+.faq__answer {
+  transition: all 0.3s linear 0s;
+  max-height: 0;
+  overflow: hidden;
+}
+@media (width < 359px) {
+  .faq__answer {
+    font-size: 16px;
   }
 }

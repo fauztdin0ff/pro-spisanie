@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /*------------------------------
-Projects slider
+Cases slider
 ---------------------------*/
 const casesSlider = document.querySelector(".cases__slider");
 
@@ -376,6 +376,85 @@ if (casesSlider) {
       }
    });
 }
+
+
+/*------------------------------
+Steps slider
+---------------------------*/
+const stepsSlider = document.querySelector(".steps__slider");
+
+if (stepsSlider) {
+   const stepsSwiper = new Swiper(stepsSlider, {
+      loop: false,
+      slidesPerView: 4,
+      spaceBetween: 30,
+      pagination: {
+         el: '.steps__slider-pagination',
+         clickable: true,
+      },
+      breakpoints: {
+         320: {
+            slidesPerView: 1.1,
+            spaceBetween: 10,
+         },
+         768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+         },
+         1024: {
+            slidesPerView: 3,
+            spaceBetween: 20,
+         },
+         1400: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+         },
+         1920: {
+            slidesPerView: 4,
+            watchOverflow: true,
+         }
+      }
+   });
+}
+
+
+
+/*------------------------------
+Faq
+---------------------------*/
+document.addEventListener("DOMContentLoaded", () => {
+   const faqItems = document.querySelectorAll(".faq__item");
+
+   if (!faqItems || faqItems.length === 0) return;
+
+   faqItems.forEach((item) => {
+      if (!item) return;
+
+      const question = item.querySelector(".faq__question");
+      const answer = item.querySelector(".faq__answer");
+
+      if (!question || !answer) return;
+
+      const toggleFaqItem = () => {
+         const isActive = item.classList.contains("active");
+
+         faqItems.forEach((el) => {
+            const elAnswer = el.querySelector(".faq__answer");
+            if (elAnswer) {
+               el.classList.remove("active");
+               elAnswer.style.maxHeight = null;
+            }
+         });
+
+         if (!isActive) {
+            item.classList.add("active");
+            answer.style.maxHeight = answer.scrollHeight + 40 + "px";
+         }
+      };
+
+      question.addEventListener("click", toggleFaqItem);
+   });
+});
 
 
 })();
