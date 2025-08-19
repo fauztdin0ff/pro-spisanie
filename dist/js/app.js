@@ -341,13 +341,14 @@ document.addEventListener("DOMContentLoaded", () => {
       paginationSelector: ".reviews__items-pagination",
    });
 });
-
 /*------------------------------
 Cases slider
 ---------------------------*/
 const casesSlider = document.querySelector(".cases__slider");
 
 if (casesSlider) {
+   const isPractice = casesSlider.classList.contains("cases-practice__slider");
+
    const casesSwiper = new Swiper(casesSlider, {
       loop: false,
       slidesPerView: 3,
@@ -355,6 +356,10 @@ if (casesSlider) {
       pagination: {
          el: '.cases__slider-pagination',
          clickable: true,
+      },
+      navigation: {
+         nextEl: '.cases__slider-button-next',
+         prevEl: '.cases__slider-button-prev',
       },
       breakpoints: {
          320: {
@@ -366,11 +371,11 @@ if (casesSlider) {
             spaceBetween: 20,
          },
          1400: {
-            slidesPerView: 3,
+            slidesPerView: isPractice ? 4 : 3,
             spaceBetween: 30,
          },
          1920: {
-            slidesPerView: 3,
+            slidesPerView: isPractice ? 4 : 3,
             watchOverflow: true,
          }
       }
@@ -423,36 +428,62 @@ if (stepsSlider) {
 Faq
 ---------------------------*/
 document.addEventListener("DOMContentLoaded", () => {
-   const faqItems = document.querySelectorAll(".faq__item");
+   function initAccordion({
+      itemSelector,
+      questionSelector,
+      answerSelector,
+      activeClass = "active",
+      extraHeight = 40,
+      single = true,
+   }) {
+      const items = document.querySelectorAll(itemSelector);
+      if (!items || items.length === 0) return;
 
-   if (!faqItems || faqItems.length === 0) return;
+      items.forEach((item) => {
+         if (!item) return;
 
-   faqItems.forEach((item) => {
-      if (!item) return;
+         const question = item.querySelector(questionSelector);
+         const answer = item.querySelector(answerSelector);
+         if (!question || !answer) return;
 
-      const question = item.querySelector(".faq__question");
-      const answer = item.querySelector(".faq__answer");
+         const toggleItem = () => {
+            const isActive = item.classList.contains(activeClass);
 
-      if (!question || !answer) return;
-
-      const toggleFaqItem = () => {
-         const isActive = item.classList.contains("active");
-
-         faqItems.forEach((el) => {
-            const elAnswer = el.querySelector(".faq__answer");
-            if (elAnswer) {
-               el.classList.remove("active");
-               elAnswer.style.maxHeight = null;
+            if (single) {
+               items.forEach((el) => {
+                  const elAnswer = el.querySelector(answerSelector);
+                  if (elAnswer) {
+                     el.classList.remove(activeClass);
+                     elAnswer.style.maxHeight = null;
+                  }
+               });
             }
-         });
 
-         if (!isActive) {
-            item.classList.add("active");
-            answer.style.maxHeight = answer.scrollHeight + 40 + "px";
-         }
-      };
+            if (!isActive) {
+               item.classList.add(activeClass);
+               answer.style.maxHeight = answer.scrollHeight + extraHeight + "px";
+            } else {
+               item.classList.remove(activeClass);
+               answer.style.maxHeight = null;
+            }
+         };
 
-      question.addEventListener("click", toggleFaqItem);
+         question.addEventListener("click", toggleItem);
+      });
+   }
+
+   initAccordion({
+      itemSelector: ".faq__item",
+      questionSelector: ".faq__question",
+      answerSelector: ".faq__answer",
+      single: true,
+   });
+
+   initAccordion({
+      itemSelector: ".questions__card-more",
+      questionSelector: ".questions__card-more-button",
+      answerSelector: ".questions__card-more-text",
+      single: false,
    });
 });
 
@@ -515,7 +546,7 @@ Worths slider
 ---------------------------*/
 document.addEventListener("DOMContentLoaded", function () {
    let worthsSlider = null;
-   const worthsSliderContainer = document.querySelector(".worths__slider");
+   const worthsSliderContainer = document.querySelector(".worths__slider.swiper");
 
    function initServicesSlider() {
       if (window.innerWidth < 1024 && !worthsSlider) {
@@ -576,6 +607,54 @@ document.addEventListener("DOMContentLoaded", function () {
    initServicesSlider();
    window.addEventListener("resize", initServicesSlider);
 });
+
+/*---------------------------------------------------------------------------
+Теги слайдер
+---------------------------------------------------------------------------*/
+const labelsSlider = document.querySelector(".blog__labels");
+
+if (labelsSlider) {
+   const labelsSwiper = new Swiper(labelsSlider, {
+      loop: false,
+      slidesPerView: 'auto',
+      spaceBetween: 14,
+   });
+}
+
+
+/*------------------------------
+Map
+---------------------------*/
+if (document.getElementById('map')) {
+   ymaps.ready(function () {
+      var mapCenter = [55.815140, 37.637470];
+      var myMap = new ymaps.Map('map', {
+         center: mapCenter,
+         zoom: 15,
+      }, {
+         searchControlProvider: 'yandex#search'
+      });
+
+      var iconImageSize = window.innerWidth < 768 ? [40, 40] : [50, 50];
+      var iconImageOffset = window.innerWidth < 768 ? [-20, -40] : [-30, -60];
+
+      var myPlacemark = new ymaps.Placemark([55.815140, 37.637470], {
+         hintContent: '"Pro.Списание"',
+         balloonContent: 'г. Москва, Проспект Мира 105, строение 1, БЦ «Московская Типография» 5 этаж, м. ВДНХ'
+      }, {
+         iconLayout: 'default#image',
+         iconImageHref: 'img/logo-location.png',
+         iconImageSize: iconImageSize,
+         iconImageOffset: iconImageOffset
+      });
+
+      myMap.behaviors.disable('scrollZoom');
+      myMap.controls.remove('searchControl');
+      myMap.controls.remove('fullscreenControl');
+      myMap.controls.remove('rulerControl');
+      myMap.geoObjects.add(myPlacemark);
+   });
+}
 
 })();
 
