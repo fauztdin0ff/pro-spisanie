@@ -124,9 +124,9 @@ __webpack_require__.r(__webpack_exports__);
 
 _modules_functions_js__WEBPACK_IMPORTED_MODULE_0__.isWebp();
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Submenu
----------------------------*/
+---------------------------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", () => {
    const toggles = document.querySelectorAll(".menu__toggle");
 
@@ -146,9 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Services slider
----------------------------*/
+---------------------------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", function () {
    let servicesSlider = null;
    const sliderContainer = document.querySelector(".services__cards-slider");
@@ -186,9 +186,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Placeholders in form
----------------------------*/
+---------------------------------------------------------------------------*/
 document.addEventListener('DOMContentLoaded', function () {
    const forms = document.querySelectorAll('.form-request');
 
@@ -213,137 +213,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/*------------------------------
-Animation
----------------------------*/
-document.addEventListener("DOMContentLoaded", () => {
-   if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-   }
 
-   gsap.registerPlugin(ScrollTrigger);
-
-   function waitForScrollRestoration(callback) {
-      let lastY = window.scrollY;
-      let sameCount = 0;
-
-      function check() {
-         const currentY = window.scrollY;
-         if (Math.abs(currentY - lastY) < 1) {
-            sameCount++;
-            if (sameCount >= 5) {
-               callback();
-               return;
-            }
-         } else {
-            sameCount = 0;
-            lastY = currentY;
-         }
-         requestAnimationFrame(check);
-      }
-      check();
-   }
-
-   function initStackScroll({ selector, requestBlock = null, swiperSelector = null, paginationSelector = null, breakpoint = 1024 }) {
-      const slides = document.querySelectorAll(selector);
-      let swiperInstance = null;
-      let triggers = [];
-
-      function initGSAP() {
-         triggers.forEach(st => st.kill());
-         triggers = [];
-
-         slides.forEach((slide, i) => {
-            const endTarget = slides[i + 1] || requestBlock;
-
-            if (endTarget) {
-               let st = ScrollTrigger.create({
-                  trigger: slide,
-                  start: "top 90",
-                  endTrigger: endTarget,
-                  end: "top 90",
-                  pin: true,
-                  pinSpacing: false,
-                  scrub: true,
-                  invalidateOnRefresh: true,
-               });
-               triggers.push(st);
-            }
-         });
-
-         ScrollTrigger.refresh();
-      }
-
-      function initSwiper() {
-         if (!swiperSelector || swiperInstance) return;
-         swiperInstance = new Swiper(swiperSelector, {
-            slidesPerView: 1.1,
-            spaceBetween: 10,
-            pagination: paginationSelector ? {
-               el: paginationSelector,
-               clickable: true
-            } : false
-         });
-      }
-
-      function destroySwiper() {
-         if (swiperInstance) {
-            swiperInstance.destroy(true, true);
-            swiperInstance = null;
-         }
-      }
-
-      function checkMode() {
-         const isDesktop = window.innerWidth >= breakpoint;
-
-         if (isDesktop) {
-            destroySwiper();
-            initGSAP();
-         } else {
-            ScrollTrigger.getAll().forEach(st => st.kill());
-            destroySwiper();
-            initSwiper();
-         }
-      }
-
-      window.addEventListener("load", () => {
-         waitForScrollRestoration(() => {
-            setTimeout(() => {
-               checkMode();
-               requestAnimationFrame(() => {
-                  ScrollTrigger.refresh();
-               });
-            }, 50);
-         });
-      });
-
-      window.addEventListener("resize", () => {
-         clearTimeout(window.resizeTimer);
-         window.resizeTimer = setTimeout(() => {
-            checkMode();
-            ScrollTrigger.refresh();
-         }, 150);
-      });
-   }
-
-
-   // Инициализация блоков
-   initStackScroll({
-      selector: ".development__slide",
-      requestBlock: document.querySelector(".development__request"),
-      swiperSelector: ".development__slider",
-      paginationSelector: ".development__slider-pagination",
-   });
-
-   initStackScroll({
-      selector: ".reviews__item",
-      swiperSelector: ".reviews__items",
-      paginationSelector: ".reviews__items-pagination",
-   });
-});
-/*------------------------------
+/*---------------------------------------------------------------------------
 Cases slider
----------------------------*/
+---------------------------------------------------------------------------*/
 const casesSlider = document.querySelector(".cases__slider");
 
 if (casesSlider) {
@@ -383,9 +256,9 @@ if (casesSlider) {
 }
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Steps slider
----------------------------*/
+---------------------------------------------------------------------------*/
 const stepsSlider = document.querySelector(".steps__slider");
 
 if (stepsSlider) {
@@ -424,9 +297,9 @@ if (stepsSlider) {
 
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Faq
----------------------------*/
+---------------------------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", () => {
    function initAccordion({
       itemSelector,
@@ -488,9 +361,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 News slider
----------------------------*/
+---------------------------------------------------------------------------*/
 const newsSlider = document.querySelector(".news__slider");
 
 if (newsSlider) {
@@ -521,9 +394,9 @@ if (newsSlider) {
 }
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 History slider
----------------------------*/
+---------------------------------------------------------------------------*/
 const historySlider = document.querySelector(".history__slider");
 
 if (historySlider) {
@@ -541,9 +414,9 @@ if (historySlider) {
 }
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Worths slider
----------------------------*/
+---------------------------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", function () {
    let worthsSlider = null;
    const worthsSliderContainer = document.querySelector(".worths__slider.swiper");
@@ -622,9 +495,9 @@ if (labelsSlider) {
 }
 
 
-/*------------------------------
+/*---------------------------------------------------------------------------
 Map
----------------------------*/
+---------------------------------------------------------------------------*/
 if (document.getElementById('map')) {
    ymaps.ready(function () {
       var mapCenter = [55.815140, 37.637470];
@@ -655,6 +528,177 @@ if (document.getElementById('map')) {
       myMap.geoObjects.add(myPlacemark);
    });
 }
+
+
+/*---------------------------------------------------------------------------
+// Разработки 
+---------------------------------------------------------------------------*/
+let developmentSlider = null;
+let developmentTimeline = null;
+
+function initDevelopmentAnimation() {
+   const cards = gsap.utils.toArray(".development__slide, .development__request-anim");
+   if (!cards.length) return;
+   const cardHeight = cards[0].offsetHeight;
+   const endDistance = (cards.length - 1) * cardHeight;
+   developmentTimeline = gsap.timeline({
+      scrollTrigger: {
+         trigger: ".development__content",
+         start: "top top",
+         end: "+=" + endDistance,
+         scrub: 1,
+         pin: ".development__content",
+         anticipatePin: 1,
+         invalidateOnRefresh: true,
+      }
+   });
+   cards.forEach((card, i) => {
+      if (i === 0) return; developmentTimeline.fromTo(card, {
+         y: "100vh"
+      }, {
+         y: 0,
+         ease: "none"
+      });
+   });
+}
+
+function destroyDevelopmentAnimation() {
+   if (developmentTimeline) {
+      developmentTimeline.kill();
+      developmentTimeline = null;
+   }
+   const cards = gsap.utils.toArray(".development__slide, .development__request-anim");
+   cards.forEach(card => gsap.set(card, {
+      clearProps: "all"
+   }));
+   ScrollTrigger.getAll().forEach(st => {
+      if (st.trigger && st.trigger.closest(".development__content")) st.kill();
+   });
+}
+
+function initDevelopmentSlider() {
+   const el = document.querySelector(".development__slider");
+   if (!el) return null;
+   return new Swiper(el, {
+      slidesPerView: 1.1,
+      spaceBetween: 10,
+      pagination: {
+         el: ".development__slider-pagination",
+         clickable: true,
+      },
+   });
+}
+
+function switchToDesktopDevelopment() {
+   if (developmentSlider) {
+      developmentSlider.destroy(true, true);
+      developmentSlider = null;
+   }
+   const cards = gsap.utils.toArray(".development__slide, .development__request-anim");
+   cards.forEach(card => gsap.set(card, {
+      clearProps: "all"
+   }));
+   requestAnimationFrame(() => {
+      initDevelopmentAnimation(); ScrollTrigger.refresh();
+   });
+}
+
+function switchToMobileDevelopment() {
+   destroyDevelopmentAnimation();
+   if (!developmentSlider) developmentSlider = initDevelopmentSlider();
+}
+
+/*---------------------------------------------------------------------------
+// Отзывы
+---------------------------------------------------------------------------*/
+
+let reviewsSlider = null;
+let reviewsTimeline = null;
+
+function initReviewsAnimation() {
+   const cards = gsap.utils.toArray(".reviews__item");
+   if (!cards.length) return;
+   const offset = 20;
+   const cardHeight = cards[0].offsetHeight;
+   const endDistance = (cards.length - 1) * (cardHeight - offset);
+   reviewsTimeline = gsap.timeline({
+      scrollTrigger: {
+         trigger: ".reviews__body",
+         start: "top top",
+         end: "+=" + endDistance,
+         scrub: 1,
+         pin: ".reviews__items-wrapper",
+         anticipatePin: 1,
+         invalidateOnRefresh: true,
+      }
+   });
+   cards.forEach((card, i) => {
+      if (i === 0) return;
+
+      reviewsTimeline.fromTo(card,
+         { y: "100vh" },
+         { y: offset * i, ease: "none" }
+      );
+   });
+}
+
+function destroyReviewsAnimation() {
+   if (reviewsTimeline) {
+      reviewsTimeline.kill();
+      reviewsTimeline = null;
+   }
+   const cards = gsap.utils.toArray(".reviews__item");
+   cards.forEach(card => gsap.set(card, {
+      clearProps: "all"
+   }));
+   ScrollTrigger.getAll().forEach(st => {
+      if (st.trigger && st.trigger.closest(".reviews__body")) st.kill();
+   });
+}
+
+function initReviewsSlider() {
+   const el = document.querySelector(".reviews__items");
+   if (!el) return null;
+   return new Swiper(el, {
+      slidesPerView: 1.1,
+      spaceBetween: 10,
+      pagination: {
+         el: ".reviews__items-pagination",
+         clickable: true,
+      },
+   });
+}
+
+function switchToDesktopReviews() {
+   if (reviewsSlider) {
+      reviewsSlider.destroy(true, true);
+      reviewsSlider = null;
+   }
+   const cards = gsap.utils.toArray(".reviews__item");
+   cards.forEach(card => gsap.set(card, {
+      clearProps: "all"
+   }));
+   requestAnimationFrame(() => {
+      initReviewsAnimation(); ScrollTrigger.refresh();
+   });
+}
+
+function switchToMobileReviews() {
+   destroyReviewsAnimation();
+   if (!reviewsSlider) reviewsSlider = initReviewsSlider();
+}
+ScrollTrigger.matchMedia({
+   "(min-width: 1024px)": function () {
+      switchToDesktopDevelopment();
+      switchToDesktopReviews();
+   },
+
+   "(max-width: 1023px)": function () {
+      switchToMobileDevelopment();
+      switchToMobileReviews();
+   }
+});
+
 
 })();
 

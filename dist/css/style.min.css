@@ -2369,6 +2369,7 @@ Benefits
 }
 .development__content {
   padding-top: 95px;
+  position: relative;
 }
 @media (width < 1024px) {
   .development__content {
@@ -2392,10 +2393,18 @@ Benefits
   }
 }
 @media (width > 1024px) {
+  .development__slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}
+@media (width > 1024px) {
   .development__slider-wrapper {
     position: relative;
-    display: block !important;
-    transform: none !important;
+    top: 0;
+    height: calc(100vh - 90px);
+    overflow: hidden;
   }
 }
 .development__slide {
@@ -2409,6 +2418,12 @@ Benefits
   position: relative;
   margin-bottom: 120px;
   transform: none;
+}
+@media (width > 1024px) {
+  .development__slide {
+    position: absolute;
+    top: 20px;
+  }
 }
 @media (width < 1024px) {
   .development__slide {
@@ -2537,6 +2552,13 @@ Benefits
   .development__image {
     height: 250px;
     max-height: 250px;
+  }
+}
+
+@media (width > 1024px) {
+  .development__request-anim {
+    position: absolute !important;
+    top: 20px;
   }
 }
 
@@ -3128,6 +3150,7 @@ Benefits
 @media (width >= 1024px) {
   .reviews__content {
     width: 50%;
+    position: relative;
   }
 }
 @media (width < 1024px) {
@@ -3140,17 +3163,17 @@ Benefits
 }
 @media (width > 1024px) {
   .reviews__items {
+    position: relative;
     width: 100%;
-    display: block;
-    transform: none !important;
-    overflow: hidden;
+    height: 100%;
   }
 }
 @media (width > 1024px) {
   .reviews__items-wrapper {
     position: relative;
-    display: block !important;
-    transform: none !important;
+    top: 0;
+    height: calc(100vh - 90px);
+    overflow: hidden;
   }
 }
 .reviews__items-pagination {
@@ -3173,10 +3196,14 @@ Benefits
   flex-direction: column;
   position: relative;
   transform: none;
-  min-height: 488px;
+  height: 488px;
+  will-change: transform;
 }
-.reviews__item:not(:last-child) {
-  margin-bottom: 120px;
+@media (width > 1024px) {
+  .reviews__item {
+    position: absolute;
+    top: 20px;
+  }
 }
 @media (width < 1600px) {
   .reviews__item {
