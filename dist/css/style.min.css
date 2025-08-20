@@ -471,7 +471,7 @@ Titles
 }
 
 .label {
-  padding: 7px 16px 5px;
+  padding: 6px 16px 6px;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -499,10 +499,15 @@ Titles
 .label.-blue span {
   background: #86bce8;
 }
+@media (width < 767px) {
+  .label {
+    height: auto;
+  }
+}
 @media (width < 359px) {
   .label {
     font-size: 14px;
-    padding: 5px 12px 3px;
+    padding: 4px 12px 4px;
     gap: 8px;
     height: 28px;
   }
