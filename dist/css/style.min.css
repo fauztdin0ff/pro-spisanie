@@ -477,12 +477,12 @@ Titles
   gap: 12px;
   color: #002853;
   font-size: 18px;
+  line-height: 1;
   font-weight: 400;
-  line-height: 100%;
   border: 1px solid rgb(0, 40, 83);
   border-radius: 20px;
-  height: 33px;
   white-space: nowrap;
+  vertical-align: middle;
 }
 .label span {
   display: inline-block;
@@ -490,7 +490,6 @@ Titles
   height: 9px;
   border-radius: 50%;
   background: #002853;
-  transform: translateY(-2px);
 }
 .label.-blue {
   border-color: #86bce8;

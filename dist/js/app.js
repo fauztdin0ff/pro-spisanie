@@ -126,37 +126,6 @@ _modules_functions_js__WEBPACK_IMPORTED_MODULE_0__.isWebp();
 
 
 /*---------------------------------------------------------------------------
-scrollRestoration
----------------------------------------------------------------------------*/
-(function () {
-   if ('scrollRestoration' in history) {
-      try { history.scrollRestoration = 'manual'; } catch (e) { }
-   }
-
-   function getScroller() {
-      return document.scrollingElement || document.documentElement || document.body;
-   }
-
-   function toTop() {
-      const scroller = getScroller();
-      if (!scroller) return;
-      try {
-         if (scroller.scrollTo) scroller.scrollTo(0, 0);
-         scroller.scrollTop = 0;
-      } catch (e) { }
-   }
-   toTop();
-
-   document.addEventListener('DOMContentLoaded', toTop, { once: true });
-   window.addEventListener('load', () => setTimeout(toTop, 0));
-   window.addEventListener('pageshow', (e) => {
-      setTimeout(toTop, 0);
-   });
-   window.addEventListener('beforeunload', toTop);
-   window.addEventListener('pagehide', toTop);
-})();
-
-/*---------------------------------------------------------------------------
 Submenu
 ---------------------------------------------------------------------------*/
 document.addEventListener("DOMContentLoaded", () => {
