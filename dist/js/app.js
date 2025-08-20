@@ -687,6 +687,8 @@ function switchToMobileReviews() {
    destroyReviewsAnimation();
    if (!reviewsSlider) reviewsSlider = initReviewsSlider();
 }
+
+
 ScrollTrigger.matchMedia({
    "(min-width: 1024px)": function () {
       switchToDesktopDevelopment();
@@ -699,6 +701,85 @@ ScrollTrigger.matchMedia({
    }
 });
 
+
+/*---------------------------------------------------------------------------
+Видео отзывы
+---------------------------------------------------------------------------*/
+const videoRevSlider = document.querySelector(".video-reviews__slider");
+
+if (videoRevSlider) {
+   const videoRevSwiper = new Swiper(videoRevSlider, {
+      loop: false,
+      slidesPerView: 'auto',
+      spaceBetween: 30,
+      grabCursor: true,
+      freeMode: false,
+      navigation: {
+         nextEl: '.video-reviews__slider-next',
+         prevEl: '.video-reviews__slider-prev',
+      },
+      pagination: {
+         el: '.video-reviews__slider-pagination',
+         clickable: true,
+      },
+      breakpoints: {
+         320: {
+            spaceBetween: 12,
+         },
+         768: {
+            spaceBetween: 20,
+         },
+         1024: {
+            spaceBetween: 30,
+         },
+      }
+   });
+}
+
+
+/*---------------------------------------------------------------------------
+Play video in reviews
+---------------------------------------------------------------------------*/
+document.addEventListener("DOMContentLoaded", () => {
+   const videoBlocks = document.querySelectorAll(".video-reviews__video");
+
+   videoBlocks.forEach(block => {
+      const video = block.querySelector("video");
+      const playBtn = block.querySelector(".video-reviews__video-play");
+
+      if (!video || !playBtn) return;
+
+      // Клик по кнопке — запускаем видео
+      playBtn.addEventListener("click", () => {
+         // Ставим на паузу все остальные видео
+         videoBlocks.forEach(otherBlock => {
+            const otherVideo = otherBlock.querySelector("video");
+            const otherBtn = otherBlock.querySelector(".video-reviews__video-play");
+            if (otherVideo !== video) {
+               otherVideo.pause();
+               otherBtn.classList.remove("hidden");
+               otherVideo.removeAttribute("controls");
+            }
+         });
+
+         video.play();
+      });
+
+      // Когда видео начало играть
+      video.addEventListener("play", () => {
+         playBtn.classList.add("hidden");
+         video.setAttribute("controls", "controls");
+      });
+
+
+      // Когда видео закончилось
+      video.addEventListener("ended", () => {
+         playBtn.classList.remove("hidden");
+         video.removeAttribute("controls");
+         video.currentTime = 0; // вернуть к началу
+      });
+   });
+});
 
 })();
 
