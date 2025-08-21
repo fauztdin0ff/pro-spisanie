@@ -206,7 +206,10 @@
                      кредиты и долги
                   </div>
                   <div class="statistics__graphic">
-                     <img src="img/graphic.svg" width="716" height="346.5" alt="">
+                     <picture>
+                        <source media="(max-width: 600px)" srcset="img/graphic-mob.svg">
+                        <img src="img/graphic.svg" width="716" height="346.5" alt="">
+                     </picture>
                      <ul class="statistics__labels">
                         <p class="statistics__label"><span></span>Банкротство через МФЦ</li>
                         <p class="statistics__label"><span></span>Судебное банкротство</li>
@@ -868,7 +871,7 @@
             </div>
          </section>
 
-         <section class="development__request form-request">
+         <section class="development__request form-request -xl">
             <div class="form-request__body container">
                <div class="form-request__info">
                   <div class="label"><span></span>Бесплатная консультация</div>
@@ -1152,8 +1155,10 @@
                            </div>
                         </a>
                      </div>
-                     <div class="news__slider-pagination"></div>
                   </div>
+               </div>
+               <div class="news__items-more">
+                  <a href="" class="button">Все статьи</a>
                </div>
             </div>
          </section>

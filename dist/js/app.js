@@ -378,7 +378,7 @@ if (newsSlider) {
       },
       breakpoints: {
          320: {
-            slidesPerView: 1.1,
+            slidesPerView: 1.01,
             spaceBetween: 10,
          },
          768: {
@@ -462,7 +462,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             breakpoints: {
                320: {
-                  slidesPerView: 1.1,
+                  slidesPerView: 1.04,
                },
                768: {
                   slidesPerView: 2,
@@ -581,7 +581,7 @@ function initDevelopmentSlider() {
    const el = document.querySelector(".development__slider");
    if (!el) return null;
    return new Swiper(el, {
-      slidesPerView: 1.1,
+      slidesPerView: 1.04,
       spaceBetween: 10,
       pagination: {
          el: ".development__slider-pagination",
@@ -661,7 +661,7 @@ function initReviewsSlider() {
    const el = document.querySelector(".reviews__items");
    if (!el) return null;
    return new Swiper(el, {
-      slidesPerView: 1.1,
+      slidesPerView: 1.04,
       spaceBetween: 10,
       pagination: {
          el: ".reviews__items-pagination",
@@ -696,7 +696,7 @@ ScrollTrigger.matchMedia({
       switchToDesktopReviews();
    },
 
-   "(max-width: 1023px)": function () {
+   "(max-width: 1024px)": function () {
       switchToMobileDevelopment();
       switchToMobileReviews();
    }
