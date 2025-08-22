@@ -532,178 +532,6 @@ if (document.getElementById('map')) {
 
 
 /*---------------------------------------------------------------------------
-// Разработки 
----------------------------------------------------------------------------*/
-let developmentSlider = null;
-let developmentTimeline = null;
-
-function initDevelopmentAnimation() {
-   const cards = gsap.utils.toArray(".development__slide, .development__request-anim");
-   if (!cards.length) return;
-   const cardHeight = cards[0].offsetHeight;
-   const endDistance = (cards.length - 1) * cardHeight;
-   developmentTimeline = gsap.timeline({
-      scrollTrigger: {
-         trigger: ".development__content",
-         start: "top top",
-         end: "+=" + endDistance,
-         scrub: 1,
-         pin: ".development__content",
-         anticipatePin: 1,
-         invalidateOnRefresh: true,
-      }
-   });
-   cards.forEach((card, i) => {
-      if (i === 0) return; developmentTimeline.fromTo(card, {
-         y: "100vh"
-      }, {
-         y: 0,
-         ease: "none"
-      });
-   });
-}
-
-function destroyDevelopmentAnimation() {
-   if (developmentTimeline) {
-      developmentTimeline.kill();
-      developmentTimeline = null;
-   }
-   const cards = gsap.utils.toArray(".development__slide, .development__request-anim");
-   cards.forEach(card => gsap.set(card, {
-      clearProps: "all"
-   }));
-   ScrollTrigger.getAll().forEach(st => {
-      if (st.trigger && st.trigger.closest(".development__content")) st.kill();
-   });
-}
-
-function initDevelopmentSlider() {
-   const el = document.querySelector(".development__slider");
-   if (!el) return null;
-   return new Swiper(el, {
-      slidesPerView: 1.04,
-      spaceBetween: 10,
-      pagination: {
-         el: ".development__slider-pagination",
-         clickable: true,
-      },
-   });
-}
-
-function switchToDesktopDevelopment() {
-   if (developmentSlider) {
-      developmentSlider.destroy(true, true);
-      developmentSlider = null;
-   }
-   const cards = gsap.utils.toArray(".development__slide, .development__request-anim");
-   cards.forEach(card => gsap.set(card, {
-      clearProps: "all"
-   }));
-   requestAnimationFrame(() => {
-      initDevelopmentAnimation(); ScrollTrigger.refresh();
-   });
-}
-
-function switchToMobileDevelopment() {
-   destroyDevelopmentAnimation();
-   if (!developmentSlider) developmentSlider = initDevelopmentSlider();
-}
-
-/*---------------------------------------------------------------------------
-// Отзывы
----------------------------------------------------------------------------*/
-
-let reviewsSlider = null;
-let reviewsTimeline = null;
-
-function initReviewsAnimation() {
-   const cards = gsap.utils.toArray(".reviews__item");
-   if (!cards.length) return;
-   const offset = 20;
-   const cardHeight = cards[0].offsetHeight;
-   const endDistance = (cards.length - 1) * (cardHeight - offset);
-   reviewsTimeline = gsap.timeline({
-      scrollTrigger: {
-         trigger: ".reviews__body",
-         start: "top top",
-         end: "+=" + endDistance,
-         scrub: 1,
-         pin: ".reviews__items-wrapper",
-         anticipatePin: 1,
-         invalidateOnRefresh: true,
-      }
-   });
-   cards.forEach((card, i) => {
-      if (i === 0) return;
-
-      reviewsTimeline.fromTo(card,
-         { y: "100vh" },
-         { y: offset * i, ease: "none" }
-      );
-   });
-}
-
-function destroyReviewsAnimation() {
-   if (reviewsTimeline) {
-      reviewsTimeline.kill();
-      reviewsTimeline = null;
-   }
-   const cards = gsap.utils.toArray(".reviews__item");
-   cards.forEach(card => gsap.set(card, {
-      clearProps: "all"
-   }));
-   ScrollTrigger.getAll().forEach(st => {
-      if (st.trigger && st.trigger.closest(".reviews__body")) st.kill();
-   });
-}
-
-function initReviewsSlider() {
-   const el = document.querySelector(".reviews__items");
-   if (!el) return null;
-   return new Swiper(el, {
-      slidesPerView: 1.04,
-      spaceBetween: 10,
-      pagination: {
-         el: ".reviews__items-pagination",
-         clickable: true,
-      },
-   });
-}
-
-function switchToDesktopReviews() {
-   if (reviewsSlider) {
-      reviewsSlider.destroy(true, true);
-      reviewsSlider = null;
-   }
-   const cards = gsap.utils.toArray(".reviews__item");
-   cards.forEach(card => gsap.set(card, {
-      clearProps: "all"
-   }));
-   requestAnimationFrame(() => {
-      initReviewsAnimation(); ScrollTrigger.refresh();
-   });
-}
-
-function switchToMobileReviews() {
-   destroyReviewsAnimation();
-   if (!reviewsSlider) reviewsSlider = initReviewsSlider();
-}
-
-
-ScrollTrigger.matchMedia({
-   "(min-width: 1024px)": function () {
-      switchToDesktopDevelopment();
-      switchToDesktopReviews();
-   },
-
-   "(max-width: 1024px)": function () {
-      switchToMobileDevelopment();
-      switchToMobileReviews();
-   }
-});
-
-
-/*---------------------------------------------------------------------------
 Видео отзывы
 ---------------------------------------------------------------------------*/
 const videoRevSlider = document.querySelector(".video-reviews__slider");
@@ -750,9 +578,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!video || !playBtn) return;
 
-      // Клик по кнопке — запускаем видео
       playBtn.addEventListener("click", () => {
-         // Ставим на паузу все остальные видео
          videoBlocks.forEach(otherBlock => {
             const otherVideo = otherBlock.querySelector("video");
             const otherBtn = otherBlock.querySelector(".video-reviews__video-play");
@@ -766,20 +592,107 @@ document.addEventListener("DOMContentLoaded", () => {
          video.play();
       });
 
-      // Когда видео начало играть
       video.addEventListener("play", () => {
          playBtn.classList.add("hidden");
          video.setAttribute("controls", "controls");
       });
 
-
-      // Когда видео закончилось
       video.addEventListener("ended", () => {
          playBtn.classList.remove("hidden");
          video.removeAttribute("controls");
-         video.currentTime = 0; // вернуть к началу
+         video.currentTime = 0;
       });
    });
+});
+
+
+/*---------------------------------------------------------------------------
+Delevopment and review slider
+---------------------------------------------------------------------------*/
+document.addEventListener("DOMContentLoaded", function () {
+   function initResponsiveSlider({
+      containerSelector,
+      wrapperSelector,
+      slideSelector,
+      paginationSelector
+   }) {
+      let sliderInstance = null;
+      const container = document.querySelector(containerSelector);
+
+      if (!container) return;
+
+      const wrapper = container.querySelector(wrapperSelector);
+      const slides = wrapper.querySelectorAll(slideSelector);
+
+      function toggleSlider() {
+         if (window.innerWidth <= 1023 && !sliderInstance) {
+            container.classList.add("swiper");
+            wrapper.classList.add("swiper-wrapper");
+            slides.forEach(slide => slide.classList.add("swiper-slide"));
+
+            sliderInstance = new Swiper(container, {
+               slidesPerView: 1.04,
+               spaceBetween: 10,
+               pagination: {
+                  el: paginationSelector,
+                  clickable: true,
+               },
+            });
+         } else if (window.innerWidth >= 1024 && sliderInstance) {
+            sliderInstance.destroy(true, true);
+            sliderInstance = null;
+
+            container.classList.remove("swiper");
+            wrapper.classList.remove("swiper-wrapper");
+            slides.forEach(slide => slide.classList.remove("swiper-slide"));
+         }
+      }
+
+      toggleSlider();
+      window.addEventListener("resize", toggleSlider);
+   }
+
+   // development
+   initResponsiveSlider({
+      containerSelector: ".development__slider",
+      wrapperSelector: ".development__slider-wrapper",
+      slideSelector: ".development__slide",
+      paginationSelector: ".development__slider-pagination"
+   });
+
+   // reviews
+   initResponsiveSlider({
+      containerSelector: ".reviews__items",
+      wrapperSelector: ".reviews__items-wrapper",
+      slideSelector: ".reviews__item",
+      paginationSelector: ".reviews__items-pagination"
+   });
+});
+
+
+/*---------------------------------------------------------------------------
+Height
+---------------------------------------------------------------------------*/
+document.addEventListener("DOMContentLoaded", () => {
+   const items = document.querySelectorAll(".reviews__item");
+
+   function setEqualHeight() {
+      items.forEach(item => item.style.height = "");
+
+      if (window.innerWidth >= 1024 && items.length > 0) {
+         let maxHeight = 0;
+
+         items.forEach(item => {
+            const h = item.offsetHeight;
+            if (h > maxHeight) maxHeight = h;
+         });
+
+         items.forEach(item => item.style.height = maxHeight + "px");
+      }
+   }
+
+   setEqualHeight();
+   window.addEventListener("resize", setEqualHeight);
 });
 
 })();
