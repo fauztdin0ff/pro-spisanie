@@ -3187,9 +3187,8 @@ Benefits
   display: flex;
   gap: 40px;
 }
-@media (width <= 1023px) {
+@media (width < 1024px) {
   .reviews__body {
-    padding-bottom: 0;
     flex-direction: column;
   }
 }
@@ -3331,7 +3330,7 @@ Benefits
 .reviews__items-pagination {
   display: none;
 }
-@media (width <= 1023px) {
+@media (width < 1024px) {
   .reviews__items-pagination {
     display: flex;
     align-items: center;
@@ -3402,7 +3401,7 @@ Benefits
     margin-bottom: 120px;
   }
 }
-@media (width <= 1023px) {
+@media (width < 1024px) {
   .reviews__item {
     min-height: unset;
     height: auto;
@@ -3462,6 +3461,12 @@ Benefits
 @media (hover: hover) {
   .reviews__item-button .button-black:hover {
     background: #1f3f87;
+  }
+}
+
+@media (width < 1024px) {
+  .reviews + .development__request {
+    padding-top: 0;
   }
 }
 
@@ -5925,6 +5930,12 @@ page-cover
 @media (width > 1600px) {
   .page-cover .page-cover__subtitle {
     margin-bottom: 98px;
+  }
+}
+
+@media (width < 768px) {
+  .page-cover + .reviews .reviews__body {
+    padding-bottom: 34px;
   }
 }
 
